@@ -31,9 +31,11 @@ from the plugins folder.
 A plugin typically has the following files (explained with the
 example of this dummy-plugin):
 
+```
 plugins/dummy-config-before.conf
 plugins/dummy-before.conf
 plugins/dummy-after.conf
+```
 
 All three files may contain CRS rules.
 
@@ -47,9 +49,9 @@ FIXME: Link
 
 The rule range is meant to be used as follows:
 
-9,5XX,000 - 9,5XX,099 : Initialization
-9,5XX,100 - 9,5XX,499 : Request Rules
-9,5XX,500 - 9,5XX,999 : Response Rules
+* 9,5XX,000 - 9,5XX,099 : Initialization
+* 9,5XX,100 - 9,5XX,499 : Request Rules
+* 9,5XX,500 - 9,5XX,999 : Response Rules
 
 ## How does this Dummy Plugin work?
 
@@ -93,7 +95,7 @@ follows the established standard for CRS plugins:
 
 ## Order of rules with plugins and existing CRS rules
 
-The rules run in the following order
+The rules run in the order described in the following sections.
 
 ### Phase 1
 
