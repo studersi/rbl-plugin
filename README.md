@@ -45,7 +45,7 @@ Each CRS plugin gets a range of 1,000 rule IDs, from 9,500,000 onwards.
 The dummy plugin runs from 9,500,000 to 9,500,999. There is a separate
 plugin rule ID registration repo where new plugins can be registered.
 
-FIXME: Link
+https://github.com/coreruleset/plugin-registry
 
 The rule range is meant to be used as follows:
 
@@ -79,7 +79,7 @@ The following steps are necessary to create a new plugin that
 follows the established standard for CRS plugins:
 
 * Pick a plugin name. Example: dummy-plugin.
-* Go to FIXME:Link and look for an empty rule range.
+* Go to https://github.com/coreruleset/plugin-registry and look for an empty rule range.
 * Rename the plugins files to the plugin-name you picked above.
 * Write your rules.
 * Adjust the rule IDs to fit the rule range you picked above.
@@ -89,8 +89,8 @@ follows the established standard for CRS plugins:
 * Set the CAPEC tag for all the rules that are meant to detect
   attacks and log it.
 * Publish your plugin rule set
-* Register your plugin rule set at FIXME: Link and enter
-  the link to the website of your plugin; probably where you
+* Register your plugin rule set at https://github.com/coreruleset/plugin-registry
+  and enter the link to the website of your plugin; probably where you
   published it.
 
 ## Order of rules with plugins and existing CRS rules
@@ -179,8 +179,12 @@ phase 2 rules.
 
 ## How to contribute the Dummy Plugin to CRS?
 
-Please register your plugin at FIXME: Link. You can then get in touch
-with the CRS project and we will review your plugin for inclusion
+Plugins can be inofficial 3rd party plugins. Or they can be official CRS plugins
+in our github repository.
+
+If you want to have your plugin hosted in our official repo, then
+please register your plugin at https://github.com/coreruleset/plugin-registry.
+You can then get in touch with the CRS project and we will review your plugin for inclusion
 in our repository. Before you apply, please make sure you
 have followed the guidelines above. If there are things that you
 can not follow, then please document it throughly and tell us about
