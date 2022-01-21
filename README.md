@@ -18,6 +18,7 @@ Plugins are rules like ordinary rules and they integrate with an existing
 CRS installation. Starting with CRS 3.4, there are four rules includes,
 three of which are meant for plugins:
 
+```
 Include crs/crs-setup.conf
  
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-config.conf
@@ -26,6 +27,7 @@ Include modsecurity.d/owasp-modsecurity-crs/plugins/*-before.conf
 Include modsecurity.d/owasp-modsecurity-crs/rules/*.conf
 
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-after.conf
+```
 
 The plugin-Folder in the standard CRS distribution is empty. Yet you can
 copy your plugin files into that folder. Files with a filename of
