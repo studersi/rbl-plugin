@@ -10,14 +10,21 @@ plugin mechanism.
 
 The dummy plugin in this repository is an offical CRS plugin.
 
+The CRS plugin documentation can be found on the [website](https://coreruleset.org/docs/configuring/plugins/).
+
 ## How do CRS plugins work?
 
 Plugins are rules like ordinary rules and they integrate with an existing
-CRS installation. Starting with CRS 3.4, there are three rules includes,
-two of which are meant for plugins:
+CRS installation. Starting with CRS 3.4, there are four rules includes,
+three of which are meant for plugins:
 
+Include crs/crs-setup.conf
+ 
+Include modsecurity.d/owasp-modsecurity-crs/plugins/*-config.conf
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-before.conf
+
 Include modsecurity.d/owasp-modsecurity-crs/rules/*.conf
+
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-after.conf
 
 The plugin-Folder in the standard CRS distribution is empty. Yet you can
@@ -32,7 +39,7 @@ A plugin typically has the following files (explained with the
 example of this dummy-plugin):
 
 ```
-plugins/dummy-config-before.conf
+plugins/dummy-config.conf
 plugins/dummy-before.conf
 plugins/dummy-after.conf
 ```
