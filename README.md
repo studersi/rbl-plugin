@@ -1,12 +1,12 @@
 # OWASP ModSecurity Core Rule Set - Dummy Plugin
 
-The OWASP Core Rule Set (CRS) comes with a plugin structure that allows 
+The OWASP Core Rule Set (CRS) comes with a plugin structure that allows
 to add official and third-party plugins to work with the existing
 baseline CRS installation.
 
-This repository contains a dummy-plugin that you can use to get going
-writing your own plugin. And it explains the mechanisms behind the
-plugin mechanism.
+This repository contains a dummy-plugin that you can use as a base
+to start writing your own plugin. And it illustrates the idea behind
+the plugin mechanism.
 
 The dummy plugin in this repository is an offical CRS plugin.
 
@@ -20,7 +20,7 @@ three of which are meant for plugins:
 
 ```
 Include crs/crs-setup.conf
- 
+
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-config.conf
 Include modsecurity.d/owasp-modsecurity-crs/plugins/*-before.conf
 
@@ -48,6 +48,9 @@ plugins/dummy-after.conf
 
 All three files may contain CRS rules.
 
+CRS plugins are enabled by default. Yet they can be disabled by setting a
+variable. See below or in the dummy-plugin's config file for more information.
+
 ## What Rule IDs do the plugins have
 
 Each CRS plugin gets a range of 1,000 rule IDs, from 9,500,000 onwards.
@@ -64,21 +67,40 @@ The rule range is meant to be used as follows:
 
 ## How does this Dummy Plugin work?
 
-The Dummy Plugin has two active rules and one rules that is commented
+The Dummy Plugin has two active rules and three rules that are commented
 out:
 
-Rule 9500010 in dummy-config-before.conf checks for the TX variable
-dummy-plugin-active. If the variable is not set, it is being created
-and set to 1.
+Rule 9500010 in dummy-config.conf checks for the existence of the
+TX variable `dummy-plugin_enabled`. If the variable is not set,
+it is being created and set to 0.
+The rule is commented out. That means the plugin is enabled
+by default. Uncomment this rule to disable the plugin.
+This rule is mandatory for CRS plugins.
 
-Rule 9500100 in dummy-before.conf checks for the request parameter
+Rule 9500020 in dummy-config.conf sets the TX variable `dummy-plugin_foobar`
+to 1. It is commented out. Uncomment it to set the variable.
+
+Rule 9500100 in dummy-config.conf checks for the request parameter
 dummy-plugin-test-parameter. If is present and not empty, then
 a rule alert is triggered and the anomaly score is raised with
 a severity CRITICAL score.
 
-Rule 9500500 in dummy-after.conf is commented out. It looks
-in the response body for a supposed token (that is probably
-not existing there).
+Rule 9500099 in dummy-before.conf checks for the 
+TX variable `dummy-plugin_enabled`. If the variable is existing and it is
+set to 0, then the subsequent rules of the plugin are removed for the
+current transaction. This effectively disables the plugin for the
+current transaction.
+This rule is mandatory for CRS plugins. When writing your own plugins,
+it is important to make sure the control statement in this rule removes
+the right rule range.
+
+Rule 9500100 in dummy-before.conf checks for the existence of the
+request parameter `dummy-plugin-test-parameter`. If the parameter exists
+and is non-empty, a critical alert is thrown.
+
+Rule 9500500 in dummy-after.conf looks in the response body for a 
+supposed token (that is probably not existing there).
+This rule is commented out and serves as an example for a response rule.
 
 ## How to adopt the Dummy Plugin to your needs?
 
@@ -92,7 +114,8 @@ follows the established standard for CRS plugins:
 * Rename the plugins files to the plugin-name you picked above.
 * Write your rules.
 * Adjust the rule IDs to fit the rule range you picked above.
-* Test your rule set throughly, namely the interaction
+* Make sure the control statement in 9500099 is correct.
+* Test your rule set throughly, namely the interaction with CRS.
 * Document your rule set. Please make sure that every rule has at
   least a brief description.
 * Set the CAPEC tag for all the rules that are meant to detect
@@ -133,8 +156,8 @@ in the plugin *-after.conf file. Yet the rules in this file
 are being executed after the early blocking is being executed.
 
 In conclusion: Phase 1 anomaly scoring via plugins and early
-blocking are incompatible. This is a shortcoming of this plugin
-architecture.
+blocking are incompatible. This is a weakness of
+the CRS plugin architecture that is very hard to improve.
 
 
 ### Phase 2
@@ -201,7 +224,7 @@ it.
 
 ## License
 
-Copyright (c) 2021 OWASP ModSecurity Core Rule Set project. All rights reserved.
+Copyright (c) 2021-2022 OWASP ModSecurity Core Rule Set project. All rights reserved.
 
 The OWASP ModSecurity Core Rule Set and its official plugins are
 distributed under Apache Software License (ASL) version 2.
